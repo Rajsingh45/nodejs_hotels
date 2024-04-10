@@ -1,0 +1,154 @@
+Microsoft Windows [Version 10.0.19045.4239]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\DELL>mongosh
+Current Mongosh Log ID: 66150f26950fc6158b16c9b4
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:          7.0.8
+Using Mongosh:          2.2.3
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2024-04-09T14:59:18.874+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   72.00 KiB
+test> use rajdb
+switched to db rajdb
+rajdb> db.users.insertOne({id: 1, username: "Alice",age: 20});
+{ ok: 1 }
+  acknowledged: true,
+  insertedId: ObjectId('661527eb950fc6158b16c9b5')
+}
+rajdb> db.users.find();
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  }
+]
+rajdb> db.users.insertOne({id: 2, username: "Rohan",age: 22});
+{
+  acknowledged: true,
+  insertedId: ObjectId('66152838950fc6158b16c9b6')
+}
+rajdb> db.users.find();
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  },
+  {
+    _id: ObjectId('66152838950fc6158b16c9b6'),
+    id: 2,
+    username: 'Rohan',
+    age: 22
+  }
+]
+rajdb> exit();
+
+C:\Users\DELL>mongosh
+Current Mongosh Log ID: 66152872b8c7e0c35c16c9b4
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.3
+Using MongoDB:          7.0.8
+Using Mongosh:          2.2.3
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-04-09T14:59:18.874+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show collections
+
+test> show rajdb
+MongoshInvalidInputError: [COMMON-10001] 'rajdb' is not a valid argument for "show".
+rajdb> show collections
+usershed to db rajdb
+rajdb> show collections;
+users
+rajdb> db.user.find();
+
+rajdb> db.users.find();
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  },
+  {
+    _id: ObjectId('66152838950fc6158b16c9b6'),
+    id: 2,
+    username: 'Rohan',
+    age: 22
+  }
+]
+rajdb> db.users.find({age:: { $lt:21}});
+Uncaught:
+SyntaxError: Unexpected token (1:19)
+
+> 1 | db.users.find({age:: { $lt:21}});
+    |                    ^
+  2 |
+
+rajdb> db.users.find({age: { $lt:21}});
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  }
+]
+rajdb> db.users.updateOne({username: "Rohan"}, { $set: {age : 25 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+rajdb> db.user.find();
+
+rajdb> db.users.find();
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  },
+  {
+    _id: ObjectId('66152838950fc6158b16c9b6'),
+    id: 2,
+    username: 'Rohan',
+    age: 25
+  }
+]
+rajdb> db.users.deleteOne({age: 25});
+{ acknowledged: true, deletedCount: 1 }
+rajdb> db.users.find();
+[
+  {
+    _id: ObjectId('661527eb950fc6158b16c9b5'),
+    id: 1,
+    username: 'Alice',
+    age: 20
+  }
+]
+rajdb>
