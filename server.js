@@ -8,7 +8,7 @@ const MenuItem= require('./8models/MenuItem');
 
 const app = express();
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
-const PORT= proceess.env.PORT || 5000;
+const PORT= process.env.PORT || 5000;
 
 app.get('/', function(req, res) {
   res.send("Welcome to my hotel. How can I help you?");
